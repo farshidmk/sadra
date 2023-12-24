@@ -1,9 +1,6 @@
-import { Alert, Box, Button, CircularProgress, TextField, Typography } from "@mui/material";
+import { Alert, Box, TextField, Typography } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import React, { useState } from "react";
-import { api } from "../../services/axios";
-import { useAuth } from "hooks/useAuth";
-import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, Controller } from "react-hook-form";
@@ -12,6 +9,7 @@ import { PHONE_NUMBER_REGEX } from "shared/consts";
 import LoginForm from "./LoginForm";
 import OtpConfirm from "./OtpConfirm";
 import { loginRequestHandler } from "./Signup";
+import DownloadForOfflineIcon from "@mui/icons-material/DownloadForOffline";
 
 const validationSchema = Yup.object().shape({
   phoneNumber: Yup.string()
@@ -20,10 +18,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const LoginPage = () => {
-  const Auth = useAuth();
-  const navigate = useNavigate();
   const [step, setStep] = useState(1);
-  const [responseError, setResponseError] = useState();
   const [captcha, setCaptcha] = useState("");
   const [otp, setOtp] = useState("");
   const [userId, setUserId] = useState("");
@@ -47,27 +42,15 @@ const LoginPage = () => {
       { entity: "Users/SendTotpCode", data: { phoneNumber } },
       {
         onSuccess: (response) => {
-          // if (response.code !== 200) {
-          //   throw new Error(response.message);
-          // }
-          // let { user_id, full_name } = response.result;
-          // Auth.storeToken(response?.result?.token);
-          // Auth.storeRefreshToken(response?.result?.refresh_token);
-          // Auth.setPrivilages(response?.result?.roles?.privileges);
-          // Auth.setUserInfo({ user_id, full_name });
-          // navigate("/dashboard");
           let result = response.data;
           if (!result.Succeeded) {
-            // setResponseError(result.ErrorList);
             throw new Error(result.ErrorList);
           } else {
             setUserId(response.data?.Data);
             setStep(2);
           }
         },
-        onError: (err) => {
-          setResponseError(err);
-        },
+        onError: (err) => {},
       }
     );
   };
@@ -132,6 +115,24 @@ const LoginPage = () => {
           ثبت نام کنید
         </Link>
       </Typography>
+      <Box
+        component="a"
+        target="_blank"
+        href="http://91.98.102.101:9098/wwwroot/help.pdf"
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          textDecoration: "none",
+          color: (theme) => theme.palette.primary.dark,
+          mt: 1,
+          border: (theme) => `1px solid ${theme.palette.primary.dark}`,
+          borderRadius: 2,
+          p: 1,
+        }}
+      >
+        <DownloadForOfflineIcon sx={{ mr: 0.5 }} />
+        دانلود دفترچه راهنمای سامانه
+      </Box>
     </Box>
   );
 };

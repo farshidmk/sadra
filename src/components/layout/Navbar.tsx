@@ -74,7 +74,10 @@ const Navbar: React.FC<Props> = ({ open, handleDrawerOpen }) => {
           <Button
             className="account-menu-btn"
             endIcon={<AccountCircleIcon />}
-            onClick={() => navigate("/user/profile")}
+            onClick={() => {
+              setAnchorEl(null);
+              navigate("/profile");
+            }}
             variant="contained"
             color="info"
             sx={{ color: (theme) => theme.palette.text.primary }}
