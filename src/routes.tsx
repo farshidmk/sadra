@@ -12,6 +12,8 @@ import Company from "domains/company/pages/Company";
 import CompanyCrud from "domains/company/pages/CompanyCrud";
 import Products from "domains/products/pages/Products";
 import ProductsCrud from "domains/products/pages/ProductsCrud";
+import MeasurementUnit from "domains/measurementUnit/pages/MeasurementUnit";
+import MeasurementUnitCrud from "domains/measurementUnit/pages/MeasurementUnitCrud";
 
 const AppRoutes: React.FC = () => {
   const Auth = useAuth();
@@ -30,6 +32,11 @@ const AppRoutes: React.FC = () => {
           <Route index element={<Products />} />
           <Route path="new" element={<ProductsCrud />} />
           <Route path=":productId" element={<ProductsCrud />} />
+        </Route>
+        <Route path="/measurement-unit">
+          <Route index element={<MeasurementUnit />} />
+          <Route path="new" element={<MeasurementUnitCrud />} />
+          <Route path=":id" element={<MeasurementUnitCrud />} />
         </Route>
         <Route path="/company-setting" element={<CompanySetting />} />
         <Route path="*" element={<NotFound />} />

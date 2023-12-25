@@ -8,7 +8,6 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { DRAWER_WIDTH, DrawerHeader } from "./Layout";
 import { Link, NavLink } from "react-router-dom";
 import { Box, Icon, Typography } from "@mui/material";
-import AppsIcon from "@mui/icons-material/Apps";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import HailIcon from "@mui/icons-material/Hail";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
@@ -165,8 +164,8 @@ const RenderMenu: React.FC<RenderMenuProps> = ({ title, icon, url, open }) => {
 const MENU_ITEMS: TRenderMenu[] = [
   { title: "تنظیمات شرکت", url: "company-setting", icon: <ApartmentIcon /> },
   { title: "مشتریان", url: "customers", icon: <HailIcon /> },
-  { title: "واحد پول", url: "currency", icon: <MonetizationOnIcon /> },
-  { title: "واحد اندازه گیری", url: "calculation-unit", icon: <StraightenIcon /> },
+  { title: "واحد پول", url: "currency-unit", icon: <MonetizationOnIcon /> },
+  { title: "واحد اندازه گیری", url: "measurement-unit", icon: <StraightenIcon /> },
   { title: "کالاها", url: "products", icon: <CategoryIcon /> },
   { title: "Import Data", url: "import-data", icon: <CloudUploadIcon /> },
   { title: "ثبت فروش ارزی", url: "foreign-sell", icon: <SellIcon color="warning" /> },
