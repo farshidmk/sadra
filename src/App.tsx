@@ -52,47 +52,19 @@ function App() {
           mode,
           primary: {
             // main: "#cddc39",
-            main: "#023e8a",
+            main: "#4975B6",
             // dark: "#006368",
             // light: "#00bdc7",
           },
           secondary: {
-            main: "#ffbe0b",
+            main: "#B68A49",
             // light: "#e7cb8c",
             // dark: "#e7cb8c",
           },
-          // primary: {
-          //   main: "#009199",
-          //   dark: "#006368",
-          //   light: "#00bdc7",
-          // },
-          // secondary: {
-          //   main: "#e7cb8c",
-          //   light: "#e7cb8c",
-          //   dark: "#e7cb8c",
-          // },
         },
       }),
     [mode]
   );
-  // const theme = createTheme({
-  //   direction: "rtl",
-  //   typography: {
-  //     fontFamily: `Vazirmatn`,
-  //   },
-  //   palette: {
-  //     primary: {
-  //       main: "#009199",
-  //       dark: "#006368",
-  //       light: "#00bdc7",
-  //     },
-  //     secondary: {
-  //       main: "#e7cb8c",
-  //       light: "#e7cb8c",
-  //       dark: "#e7cb8c",
-  //     },
-  //   },
-  // });
 
   return (
     <ThemeProvider theme={theme}>

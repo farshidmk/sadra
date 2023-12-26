@@ -46,7 +46,7 @@ const NotFound = () => {
               marginInlineStart: "0px",
               marginInlineEnd: "0px",
               fontWeight: "bolnslate(-50%,-50%)",
-              color: "#009199",
+              color: (theme) => theme.palette.secondary.main,
             }}
           >
             :(

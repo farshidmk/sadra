@@ -32,7 +32,7 @@ const MeasurementUnit = () => {
             <Box sx={{ display: "flex" }}>
               <TableActions
                 onEdit={() => {
-                  navigate(`${row.Id}`);
+                  navigate(`${row.pkfUnit}`);
                 }}
                 onDelete={() => setSelectedItem(row)}
               />
@@ -64,7 +64,7 @@ const MeasurementUnit = () => {
         handleClose={() => setSelectedItem(undefined)}
         name={selectedItem?.unitName}
         open={!!selectedItem}
-        deleteParam={{ refetchKey: "Unit", url: `Unit/${selectedItem?.pkfUnit}` }}
+        deleteParam={{ refetchKey: "Unit/Get", url: `Unit/${selectedItem?.pkfUnit}` }}
       />
       <CreateNewItem name="واحد اندازه گیری" icon={<StraightenIcon />} />
       {status === "error" ? (

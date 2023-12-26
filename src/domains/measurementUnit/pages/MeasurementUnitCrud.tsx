@@ -14,7 +14,7 @@ import Title from "components/title/Title";
 import { IUnit } from "types/unit";
 
 const MeasurementUnitCrud = () => {
-  const { companyId: id } = useParams();
+  const { id } = useParams();
   const mode: TCrudType = !id ? "CREATE" : "EDIT";
   const navigate = useNavigate();
   const Auth = useAuth();

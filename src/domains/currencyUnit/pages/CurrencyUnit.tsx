@@ -32,7 +32,7 @@ const CurrencyUnit = () => {
             <Box sx={{ display: "flex" }}>
               <TableActions
                 onEdit={() => {
-                  navigate(`${row.Id}`);
+                  navigate(`${row.pkfCurrency}`);
                 }}
                 onDelete={() => setSelectedItem(row)}
               />
@@ -64,7 +64,7 @@ const CurrencyUnit = () => {
         handleClose={() => setSelectedItem(undefined)}
         name={selectedItem?.currency}
         open={!!selectedItem}
-        deleteParam={{ refetchKey: "Currency", url: `Currency/${selectedItem?.pkfCurrency}` }}
+        deleteParam={{ refetchKey: "Currency/Get", url: `Currency/${selectedItem?.pkfCurrency}` }}
       />
       <CreateNewItem name="واحد پول" icon={<MonetizationOnIcon />} />
       {status === "error" ? (
