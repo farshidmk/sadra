@@ -64,7 +64,7 @@ const MeasurementUnit = () => {
         handleClose={() => setSelectedItem(undefined)}
         name={selectedItem?.unitName}
         open={!!selectedItem}
-        deleteParam={{ refetchKey: "Unit", url: `Unit/${selectedItem?.Id}` }}
+        deleteParam={{ refetchKey: "Unit", url: `Unit/${selectedItem?.pkfUnit}` }}
       />
       <CreateNewItem name="واحد اندازه گیری" icon={<StraightenIcon />} />
       {status === "error" ? (
@@ -72,7 +72,7 @@ const MeasurementUnit = () => {
       ) : status === "loading" ? (
         <Skeleton height={300} />
       ) : status === "success" ? (
-        <CustomDataGrid rows={data} columns={columns} getRowId={(row: IUnit) => row.Id} />
+        <CustomDataGrid rows={data} columns={columns} getRowId={(row: IUnit) => row.pkfUnit} />
       ) : null}
     </Box>
   );

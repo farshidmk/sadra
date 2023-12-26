@@ -64,7 +64,7 @@ const CurrencyUnit = () => {
         handleClose={() => setSelectedItem(undefined)}
         name={selectedItem?.currency}
         open={!!selectedItem}
-        deleteParam={{ refetchKey: "Currency", url: `Currency/${selectedItem?.Id}` }}
+        deleteParam={{ refetchKey: "Currency", url: `Currency/${selectedItem?.pkfCurrency}` }}
       />
       <CreateNewItem name="واحد پول" icon={<MonetizationOnIcon />} />
       {status === "error" ? (
@@ -72,7 +72,7 @@ const CurrencyUnit = () => {
       ) : status === "loading" ? (
         <Skeleton height={300} />
       ) : status === "success" ? (
-        <CustomDataGrid rows={data} columns={columns} getRowId={(row: ICurrencyUnit) => row.Id} />
+        <CustomDataGrid rows={data} columns={columns} getRowId={(row: ICurrencyUnit) => row.pkfCurrency} />
       ) : null}
     </Box>
   );
