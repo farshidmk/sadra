@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent } from "@mui/material";
+import { Button, CircularProgress, Dialog, DialogActions, DialogContent } from "@mui/material";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
@@ -46,59 +46,64 @@ export default function DeleteModal({
   });
 
   return (
-    <Dialog sx={{ minWidth: "400px", minHeight: "200pdx" }} open={open} disablePortal={isLoading}>
-      <DialogTitle>{dialogTitle}</DialogTitle>
-      <DialogContent>
-        <DialogContentText>{dialogMessage}</DialogContentText>
-      </DialogContent>
-      <DialogActions>
-        <Button
-          onClick={
-            handleSubmit
-              ? handleSubmit
-              : () => {
-                  mutate(
-                    {
-                      entity: url!,
-                      method: "delete",
-                    },
-                    {
-                      onSuccess: (res: any) => {
-                        if (!res.Succeeded) {
-                          if (setError) {
-                            setError(res.ErrorList);
-                          }
-                        } else {
-                          queryClient.refetchQueries({ queryKey: [refetchKey] });
-                          snackbar(`${name} با موفقیت حذف شد`, "success");
+    <>
+      {open && (
+        <Dialog sx={{ minWidth: "400px", minHeight: "200pdx" }} open={open} disablePortal={isLoading}>
+          <DialogTitle>{dialogTitle}</DialogTitle>
+          <DialogContent>
+            <DialogContentText>{dialogMessage}</DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              onClick={
+                handleSubmit
+                  ? handleSubmit
+                  : () => {
+                      mutate(
+                        {
+                          entity: url!,
+                          method: "delete",
+                        },
+                        {
+                          onSuccess: (res: any) => {
+                            if (!res.Succeeded) {
+                              if (setError) {
+                                setError(res.ErrorList);
+                              }
+                            } else {
+                              queryClient.refetchQueries({ queryKey: [refetchKey] });
+                              snackbar(`${name} با موفقیت حذف شد`, "success");
+                              handleClose();
+                            }
+                          },
+                          onError: (res) => snackbar("خطا در انجام عملیات", "error"),
                         }
-                      },
-                      onError: (res) => snackbar("خطا در انجام عملیات", "error"),
+                      );
                     }
-                  );
-                }
-          }
-          variant="outlined"
-          endIcon={<DeleteOutlineIcon />}
-          color="error"
-          sx={{ mx: 2, width: "150px" }}
-          autoFocus
-          disabled={isLoading}
-        >
-          حذف
-        </Button>
-        <Button
-          variant="outlined"
-          endIcon={<CloseOutlinedIcon />}
-          color="warning"
-          sx={{ mx: 2, width: "150px" }}
-          onClick={handleClose}
-          disabled={isLoading}
-        >
-          بازگشت
-        </Button>
-        {!!error && <ErrorAlert text={error} />}
-      </DialogActions>
-    </Dialog>
+              }
+              variant="contained"
+              endIcon={isLoading ? <CircularProgress size={12} /> : <DeleteOutlineIcon />}
+              color="error"
+              sx={{ mx: 2, width: "150px" }}
+              autoFocus
+              disabled={isLoading}
+            >
+              حذف
+            </Button>
+            <Button
+              variant="outlined"
+              endIcon={<CloseOutlinedIcon />}
+              color="warning"
+              sx={{ mx: 2, width: "150px" }}
+              onClick={handleClose}
+              disabled={isLoading}
+            >
+              بازگشت
+            </Button>
+            {!!error && <ErrorAlert text={error} />}
+          </DialogActions>
+        </Dialog>
+      )}
+    </>
   );
 }
