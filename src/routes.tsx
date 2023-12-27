@@ -16,6 +16,8 @@ import MeasurementUnit from "domains/measurementUnit/pages/MeasurementUnit";
 import MeasurementUnitCrud from "domains/measurementUnit/pages/MeasurementUnitCrud";
 import CurrencyUnit from "domains/currencyUnit/pages/CurrencyUnit";
 import CurrencyUnitCrud from "domains/currencyUnit/pages/CurrencyUnitCrud";
+import Customer from "domains/customers/pages/Customer";
+import CustomerCrud from "domains/customers/pages/CustomerCrud";
 
 const AppRoutes: React.FC = () => {
   const Auth = useAuth();
@@ -44,6 +46,11 @@ const AppRoutes: React.FC = () => {
           <Route index element={<CurrencyUnit />} />
           <Route path="new" element={<CurrencyUnitCrud />} />
           <Route path=":id" element={<CurrencyUnitCrud />} />
+        </Route>
+        <Route path="/customers">
+          <Route index element={<Customer />} />
+          <Route path="new" element={<CustomerCrud />} />
+          <Route path=":id" element={<CustomerCrud />} />
         </Route>
         <Route path="/company-setting" element={<CompanySetting />} />
         <Route path="*" element={<NotFound />} />
