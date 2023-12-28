@@ -68,7 +68,13 @@ const CustomerCrud = () => {
     formState: { errors },
     control,
     setValue,
-  } = useForm<ICustomer>();
+  } = useForm<ICustomer>({
+    defaultValues: {
+      title: {
+        pkfTitle: 5,
+      },
+    },
+  });
 
   useEffect(() => {
     if (mode !== "CREATE" && data) {
@@ -119,7 +125,7 @@ const CustomerCrud = () => {
         refetch: customerTitlesRefetch,
       },
       { name: "name", label: "نام", inputType: "text" },
-      { name: "famile", label: "نام خانوادگی", inputType: "text" },
+      { name: "famile", label: "نام خانوادگی / شرکت", inputType: "text" },
       {
         name: "type",
         label: "نوع طرف حساب",

@@ -1,5 +1,4 @@
 export interface IUnit {
-  Id: string;
   IsDirty: boolean;
   connectionString: string;
   error: string;

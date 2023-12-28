@@ -35,7 +35,7 @@ const AppRoutes: React.FC = () => {
         <Route path="/products">
           <Route index element={<Products />} />
           <Route path="new" element={<ProductsCrud />} />
-          <Route path=":productId" element={<ProductsCrud />} />
+          <Route path=":id" element={<ProductsCrud />} />
         </Route>
         <Route path="/measurement-unit">
           <Route index element={<MeasurementUnit />} />

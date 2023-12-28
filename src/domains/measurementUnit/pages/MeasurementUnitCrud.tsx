@@ -62,7 +62,7 @@ const MeasurementUnitCrud = () => {
         entity: `Unit`,
         method: mode === "CREATE" ? "post" : "put",
         data: {
-          ...(mode === "EDIT" ? { id: data?.Id } : {}),
+          ...(mode === "EDIT" ? { id: data?.pkfUnit } : {}),
           ...data,
         },
       },

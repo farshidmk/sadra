@@ -118,7 +118,7 @@ const LoginPage = () => {
       <Box
         component="a"
         target="_blank"
-        href="http://91.98.102.101:9098/wwwroot/help.pdf"
+        href="help.pdf"
         sx={{
           display: "flex",
           alignItems: "center",
