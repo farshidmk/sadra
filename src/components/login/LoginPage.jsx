@@ -71,7 +71,11 @@ const LoginPage = () => {
     >
       <>
         {step === 1 ? (
-          <LoginForm handleSubmit={handleSubmit(onSubmitPhoneNumber)} isLoading={isLoading}>
+          <LoginForm
+            handleSubmit={handleSubmit(onSubmitPhoneNumber)}
+            isLoading={isLoading}
+            disabledBtn={!watch("phoneNumber")}
+          >
             <>
               <Controller
                 control={control}

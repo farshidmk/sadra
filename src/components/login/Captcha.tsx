@@ -16,13 +16,18 @@ const Captcha = ({ captchaValue, setCaptchaValue, captchaRequest }: Props) => {
   return (
     <Box sx={{ mt: 2, display: "flex", alignItems: "center" }}>
       {captchaImgStatus === "loading" ? (
-        <Skeleton width={150} height={50} />
+        <Skeleton width={150} height={50} sx={{ mr: 1 }} />
       ) : captchaImgStatus === "error" ? (
         <IconButton onClick={() => captchaImgRefetch} color="error">
           <RefreshIcon />
         </IconButton>
       ) : (
-        <Box component="img" src={`${captchaImg.Data?.Image}`} />
+        <Box sx={{ display: "flex", mr: 2 }}>
+          <IconButton onClick={() => captchaImgRefetch()} color="primary">
+            <RefreshIcon />
+          </IconButton>
+          <Box component="img" src={`${captchaImg.Data?.Image}`} />
+        </Box>
       )}
       <TextField
         value={captchaValue}

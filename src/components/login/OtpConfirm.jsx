@@ -19,6 +19,11 @@ const OtpConfirm = ({ isLogin = true, userId, phoneNumber, captcha, setCaptcha, 
   const { isLoading, mutate } = useMutation({
     mutationFn: loginRequestHandler,
   });
+
+  const { mutate: resendOtpHandler } = useMutation({
+    mutationFn: Auth.serverCall,
+  });
+
   const captchaRequest = useQuery({
     queryKey: [`Users/Captcha`],
     queryFn: Auth?.getRequest,
@@ -36,7 +41,8 @@ const OtpConfirm = ({ isLogin = true, userId, phoneNumber, captcha, setCaptcha, 
         onSuccess: (response) => {
           let result = response.data;
           if (!result.Succeeded) {
-            setError(result.Data);
+            setError(result.ErrorList);
+            captchaRequest.refetch();
             throw new Error(result.ErrorList);
           } else {
             Auth.storeToken(result?.Data?.Token);
@@ -82,7 +88,10 @@ const OtpConfirm = ({ isLogin = true, userId, phoneNumber, captcha, setCaptcha, 
                 ارسال مجدد کد {buttonProps.remainingTime || ""}
               </Button>
             )}
-            onResendClick={() => console.log("Resend clicked")}
+            onResendClick={() => {
+              resendOtpHandler({ entity: "Users/SendTotpCode", method: "post", data: { PhoneNumber: phoneNumber } });
+              setOtp("");
+            }}
             renderTime={() => <></>}
           />
         </Box>

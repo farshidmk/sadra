@@ -46,7 +46,7 @@ const LoginForm = ({ children, handleSubmit, isLoading, isRegister = false, disa
             <LoginIcon />
           )
         }
-        disabled={isLoading}
+        disabled={isLoading || disabledBtn}
       >
         {isRegister ? "عضویت" : "ورود"}
       </Button>
