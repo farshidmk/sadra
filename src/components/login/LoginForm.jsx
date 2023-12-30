@@ -30,7 +30,7 @@ const LoginForm = ({ children, handleSubmit, isLoading, isRegister = false, disa
         fontWeight={700}
         sx={{ color: (theme) => theme.palette.primary.main, mb: 3 }}
       >
-        صدرا افزار
+        داده گستر
       </Typography>
       {children}
       <Button

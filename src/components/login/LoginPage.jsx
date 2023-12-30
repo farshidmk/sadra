@@ -50,7 +50,9 @@ const LoginPage = () => {
             setStep(2);
           }
         },
-        onError: (err) => {},
+        onError: (err) => {
+          throw new Error(err);
+        },
       }
     );
   };

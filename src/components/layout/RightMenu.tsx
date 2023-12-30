@@ -97,7 +97,7 @@ const RightMenu: React.FC<Props> = ({ open, handleDrawerClose }) => {
               }}
             >
               <Typography variant="h6" noWrap fontWeight={800} sx={{ color: (theme) => theme.palette.primary.main }}>
-                صدرا افزار
+                داده گستر
               </Typography>
               <Typography variant="caption" fontSize={10} sx={{ color: (theme) => theme.palette.primary.main }}>
                 سامانه پرداخت مالیات و حسابرسی
