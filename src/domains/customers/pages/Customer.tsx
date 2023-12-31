@@ -57,18 +57,23 @@ const Customer = () => {
         ),
       },
       {
-        field: "title",
+        field: "pkfTitle",
         headerName: "عنوان",
         flex: 1,
         renderCell: ({ value }) => (
           <RenderGridStatus
             status={customerTitlesStatus}
             refetch={customerTitlesRefetch}
-            renderValue={<>{customerTitles?.find((ct) => ct.pkfTitle === value.pkfTitle)?.title}</>}
+            renderValue={<>{customerTitles?.find((ct) => ct.pkfTitle === value)?.title}</>}
           />
         ),
       },
-      { field: "fullName", headerName: "نام", flex: 1 },
+      {
+        field: "name",
+        headerName: "نام",
+        flex: 1,
+        renderCell: ({ row }: { row: ICustomer }) => row.name + " " + row.famile,
+      },
       { field: "economicCode", headerName: "کد اقتصادی", flex: 1 },
       { field: "identityCode", headerName: "شناسه ملی/کدملی", flex: 1 },
       { field: "zipCode", headerName: "کد پستی", flex: 1 },
@@ -91,9 +96,17 @@ const Customer = () => {
       },
     ],
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
+    [
+      customerTitles,
+      customerTitlesRefetch,
+      customerTitlesStatus,
+      customerTypes,
+      customerTypesRefetch,
+      customerTypesStatus,
+      navigate,
+    ]
   );
+  // eslint-disable-next-line react-hooks/exhaustive-deps
 
   const { data, status, refetch } = useQuery({
     queryKey: [`Customer`],

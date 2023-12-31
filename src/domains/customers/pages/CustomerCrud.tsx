@@ -70,9 +70,7 @@ const CustomerCrud = () => {
     setValue,
   } = useForm<ICustomer>({
     defaultValues: {
-      title: {
-        pkfTitle: 5,
-      },
+      pkfTitle: 5,
     },
   });
 
@@ -92,10 +90,7 @@ const CustomerCrud = () => {
       {
         entity: `Customer`,
         method: mode === "CREATE" ? "post" : "put",
-        data: {
-          ...(mode === "EDIT" ? { id: data?.pkfTreater } : {}),
-          ...data,
-        },
+        data,
       },
       {
         onSuccess: (res: any) => {
@@ -116,7 +111,7 @@ const CustomerCrud = () => {
     () => [
       { name: "treaterCode", label: "کد", inputType: "text" },
       {
-        name: "title.pkfTitle",
+        name: "pkfTitle",
         label: "عنوان",
         inputType: "select",
         options: customerTitles,
