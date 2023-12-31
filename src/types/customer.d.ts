@@ -57,16 +57,8 @@ export interface ICustomer {
   taxIDContractWork: string;
   taxValidityDate: string;
   tel: string;
-  title: {
-    titleCode: string;
-    pkfTitle: number;
-    title: string;
-    titleEn: string;
-    error: string;
-    connectionString: string;
-    status: boolean;
-  };
-  title: any;
+  title: string;
+  pkfTitle: number;
   treaterCode: string;
   treaterTeibaCode: string;
   // treaterTypeAccounting:{pkfTreaterTypeAccounting: 19, treaterTypeAccounting: null}

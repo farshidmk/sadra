@@ -1,4 +1,4 @@
-import { Box, FormControl, Grid, InputLabel, MenuItem, Select, Skeleton } from "@mui/material";
+import { Box, Grid, Skeleton } from "@mui/material";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import ErrorHandler from "components/errorHandler/ErrorHandler";
 import ErrorAlert from "components/phoenixAlert/ErrorAlert";
@@ -12,10 +12,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { TCrudType } from "types/types";
 import Title from "components/title/Title";
 import { IProduct } from "types/product";
-// import SelectUnit from "../components/SelectUnit";
 import { IUnit } from "types/unit";
 import { TOption } from "types/render";
-import RenderGridStatus from "components/dataGrid/RenderGridStatus";
 
 const ProductsCrud = () => {
   const { id } = useParams();
@@ -67,14 +65,19 @@ const ProductsCrud = () => {
     setValue,
     watch,
   } = useForm<IProduct>({
-    //@ts-ignore
     defaultValues:
       mode === "CREATE"
         ? async () => {
             let code = await Auth?.getRequest({ queryKey: `Product/GetMaxCode` });
-            let defaults = {
+            let defaults: IProduct = {
               vatTax: 9,
               goodCode: code?.Messages,
+              goodCodeSM: "",
+              goodName: "",
+              memo: "",
+              pkfGood: 0,
+              pkfUnit: 0,
+              unitName: "",
             };
             return defaults;
           }
@@ -86,16 +89,8 @@ const ProductsCrud = () => {
       Object.keys(data).forEach((field) => {
         setValue(field as keyof IProduct, data[field as keyof IProduct]);
       });
-      //@ts-ignore
-      setValue("tempUnit1Id", data?.unit1?.pkfUnit);
     }
   }, [setValue, data, mode]);
-
-  // useEffect(() => {
-  //   if (mode === "CREATE" && lastCodeStatus === "success" && ) {
-  //       setValue(field as keyof IProduct, data[field as keyof IProduct]);
-  //   }
-  // }, [setValue, data, mode]);
 
   const onSubmitHandler = (data: IProduct) => {
     setError(undefined);
@@ -106,10 +101,6 @@ const ProductsCrud = () => {
         data: {
           ...(mode === "EDIT" ? { id: data?.pkfGood } : {}),
           ...data,
-          unit1: {
-            //@ts-ignore
-            pkfUnit: data?.tempUnit1Id,
-          },
         },
       },
       {
@@ -126,47 +117,18 @@ const ProductsCrud = () => {
       }
     );
   };
-  console.log("watch: ", watch("unit1.pkfUnit"));
   let productItems = useMemo(
     () => [
       { name: "goodCode", label: "کد کالا", inputType: "text" },
       { name: "goodName", label: "نام کالا", inputType: "text" },
       {
-        name: "unit1.pkfUnit",
+        name: "pkfUnit",
         label: "واحد",
-        inputType: "custom",
-        // inputType: "select",
-        // options: units,
-        // status: unitsStatus,
-        // refetch: unitRefetch,
-        render: (
-          <>
-            <RenderGridStatus
-              status={unitsStatus}
-              refetch={unitRefetch}
-              renderValue={
-                <>
-                  <FormControl fullWidth>
-                    <InputLabel id={`select-input-unit`}>{"واحد"}</InputLabel>
-                    <Select
-                      label="واحد"
-                      error={Boolean(errors?.["unit1"]?.pkfUnit?.message)}
-                      size="small"
-                      value={watch("unit1.pkfUnit")}
-                      onChange={(e, c) => console.log({ e, c })}
-                    >
-                      {units?.map((option: TOption) => (
-                        <MenuItem key={`${"name"}-select-item-${option.value}`} value={option.value}>
-                          {option.title}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </>
-              }
-            />
-          </>
-        ),
+        inputType: "autocomplete",
+        options: units,
+        status: unitsStatus,
+        refetch: unitRefetch,
+        setValue,
       },
       { name: "vatTax", label: "درصد مالیات بر ارزش افزوده ", inputType: "text" },
       { name: "goodCodeSM", label: "کد کالاسامانه مودیان", inputType: "text" },
@@ -180,7 +142,8 @@ const ProductsCrud = () => {
         },
       },
     ],
-    [errors, unitRefetch, units, unitsStatus, watch, watch("unit1.pkfUnit")]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [unitRefetch, units, unitsStatus]
   );
 
   return (

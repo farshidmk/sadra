@@ -1,6 +1,5 @@
 import { Box, Button, Skeleton } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import CreateNewItem from "components/buttons/CreateNewItem";
 import CustomDataGrid from "components/dataGrid/CustomDataGrid";
 import ErrorHandler from "components/errorHandler/ErrorHandler";
 import TableActions from "components/table/TableActions";
@@ -13,6 +12,8 @@ import CategoryIcon from "@mui/icons-material/Category";
 import { IProduct } from "types/product";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import UploadProduct from "../components/UploadProduct";
+import RenderGridStatus from "components/dataGrid/RenderGridStatus";
+import { IUnit } from "types/unit";
 
 const Products = () => {
   const Auth = useAuth();
@@ -21,12 +22,34 @@ const Products = () => {
 
   const [showUploadModal, setShowUploadModal] = useState(false);
 
+  const {
+    data: units,
+    status: unitsStatus,
+    refetch: unitsRefetch,
+  } = useQuery({
+    queryKey: ["Unit/Get"],
+    queryFn: Auth?.getRequest,
+    select: (res): IUnit[] => res.Data,
+    cacheTime: Infinity,
+    staleTime: Infinity,
+  });
+
   const columns = useMemo(
     (): TGridCol<IProduct>[] => [
       { field: "goodCode", headerName: "کد کالا", flex: 1 },
       { field: "goodName", headerName: "نام کالا", flex: 1 },
-      //@ts-ignore
-      { field: "unit1.unitName", headerName: "واحد", flex: 1 },
+      {
+        field: "pkfUnit",
+        headerName: "واحد",
+        flex: 1,
+        renderCell: ({ value }) => (
+          <RenderGridStatus
+            status={unitsStatus}
+            refetch={unitsRefetch}
+            renderValue={<>{units?.find((ct) => ct.pkfUnit === value)?.unitName}</>}
+          />
+        ),
+      },
       { field: "vatTax", headerName: "درصد مالیات بر ارزش افزوده ", flex: 1 },
       { field: "goodCodeSM", headerName: "کد کالاسامانه مودیان", flex: 1 },
 
@@ -49,8 +72,7 @@ const Products = () => {
       },
     ],
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
+    [navigate, units, unitsRefetch, unitsStatus]
   );
 
   const { data, status, refetch } = useQuery({

@@ -75,7 +75,7 @@ const RenderFormInput: React.FC<IRenderFormInput> = (props) => {
     );
   }
   if (props.inputType === "autocomplete") {
-    let { options, status, refetch } = props;
+    let { options, status, refetch, setValue } = props;
     if (status === "loading") return <LoadingState label={label} />;
     if (status === "error" && refetch) return <ErrorState label={label} refetch={refetch} />;
     return (
@@ -97,6 +97,7 @@ const RenderFormInput: React.FC<IRenderFormInput> = (props) => {
           return temp;
         }}
         value={controllerField?.value}
+        onChange={(e, item: TOption) => setValue(controllerField?.name, item.value)}
         renderInput={(params) => (
           <TextField
             {...params}
