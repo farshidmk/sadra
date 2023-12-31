@@ -116,7 +116,6 @@ const CustomerCrud = () => {
     () => [
       { name: "treaterCode", label: "کد", inputType: "text" },
       {
-        //TODO: value not show in edit mode
         name: "title.pkfTitle",
         label: "عنوان",
         inputType: "select",

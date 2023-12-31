@@ -26,7 +26,7 @@ const Products = () => {
       { field: "goodCode", headerName: "کد کالا", flex: 1 },
       { field: "goodName", headerName: "نام کالا", flex: 1 },
       //@ts-ignore
-      { field: "unit1.unitName", headerName: "واحد", flex: 1, renderCell: ({ value }) => value?.title },
+      { field: "unit1.unitName", headerName: "واحد", flex: 1 },
       { field: "vatTax", headerName: "درصد مالیات بر ارزش افزوده ", flex: 1 },
       { field: "goodCodeSM", headerName: "کد کالاسامانه مودیان", flex: 1 },
 

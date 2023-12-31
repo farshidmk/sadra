@@ -7,12 +7,12 @@ const LoginForm = ({ children, handleSubmit, isLoading, isRegister = false, disa
   return (
     <Box
       component="form"
-      minWidth={400}
+      maxWidth={500}
       minHeight={300}
       onSubmit={handleSubmit}
       sx={{
         mx: 2,
-        maxWidth: "700px",
+        width: "90%",
         p: 3,
         borderRadius: 1,
         border: (theme) => `1px solid ${theme.palette.primary.dark}`,
@@ -35,7 +35,8 @@ const LoginForm = ({ children, handleSubmit, isLoading, isRegister = false, disa
       {children}
       <Button
         variant="contained"
-        sx={{ width: "250px", my: 1.5 }}
+        fullWidth
+        sx={{ maxWidth: "400px", my: 1.5 }}
         type="submit"
         endIcon={
           isLoading ? (
