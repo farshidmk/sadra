@@ -63,7 +63,6 @@ const ProductsCrud = () => {
     formState: { errors },
     control,
     setValue,
-    watch,
   } = useForm<IProduct>({
     defaultValues:
       mode === "CREATE"

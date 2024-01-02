@@ -97,7 +97,7 @@ const RenderFormInput: React.FC<IRenderFormInput> = (props) => {
           return temp;
         }}
         value={controllerField?.value}
-        onChange={(e, item: TOption) => setValue(controllerField?.name, item.value)}
+        onChange={(e, item: TOption | undefined) => setValue(controllerField?.name, item?.value)}
         renderInput={(params) => (
           <TextField
             {...params}

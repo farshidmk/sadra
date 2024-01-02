@@ -18,6 +18,7 @@ import CurrencyUnit from "domains/currencyUnit/pages/CurrencyUnit";
 import CurrencyUnitCrud from "domains/currencyUnit/pages/CurrencyUnitCrud";
 import Customer from "domains/customers/pages/Customer";
 import CustomerCrud from "domains/customers/pages/CustomerCrud";
+import Sale from "domains/sales/pages/Sale";
 
 const AppRoutes: React.FC = () => {
   const Auth = useAuth();
@@ -25,6 +26,7 @@ const AppRoutes: React.FC = () => {
   return (
     <Routes>
       <Route element={<ProtectedRoute />}>
+        <Route path="/" element={<Navigate to="/dashboard" />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/company">
@@ -51,6 +53,12 @@ const AppRoutes: React.FC = () => {
           <Route index element={<Customer />} />
           <Route path="new" element={<CustomerCrud />} />
           <Route path=":id" element={<CustomerCrud />} />
+        </Route>
+        <Route path="/foreign-sell">
+          <Route index element={<Sale isForeign />} />
+        </Route>
+        <Route path="/indoor-sell">
+          <Route index element={<Sale isForeign={false} />} />
         </Route>
         <Route path="/company-setting" element={<CompanySetting />} />
         <Route path="*" element={<NotFound />} />

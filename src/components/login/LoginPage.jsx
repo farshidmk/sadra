@@ -89,6 +89,7 @@ const LoginPage = () => {
                     label="شماره موبایل"
                     size="small"
                     fullWidth
+                    sx={{ maxWidth: "400px" }}
                     error={errors.phoneNumber?.message}
                     helperText={errors.phoneNumber?.message}
                   />
